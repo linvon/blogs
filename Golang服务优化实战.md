@@ -25,11 +25,11 @@ toc: "true"
 
 [Jaeger](https://www.jaegertracing.io/) 是一个优秀的分布式微服务事务追踪软件。即使一个请求会经过不同的微服务来完成业务，它仍然可以追踪一个完整的会话上下文。
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/jaeger view.png" alt="39d66ffc2a28e0f0f810cda217f7add0.png" style="zoom:50%;" />
+<img src="/img/optimize/jaeger view.png" alt="39d66ffc2a28e0f0f810cda217f7add0.png" style="zoom:50%;" />
 
 点击一个请求会话，可以进入到它的详情页
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/jaeger detail view.png" alt="aa77e19aae4dc70cfe60134c9df2e3ed.png" style="zoom: 50%;" />
+<img src="/img/optimize/jaeger detail view.png" alt="aa77e19aae4dc70cfe60134c9df2e3ed.png" style="zoom: 50%;" />
 
 可以看到在整个请求的分阶段耗时都展现了出来，我们可以清楚的了解到整个请求过程中时间都花费在了什么地方。
 
@@ -42,7 +42,7 @@ span, _ := opentracing.StartSpanFromContext(ctx, "RecallStrategies", opentracing
 defer span.Finish()
 ```
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/Jaeger category.jpg" alt="cffc3627459ff9044a4dc8328bf21691.jpeg" style="zoom:50%;" />
+<img src="/img/optimize/Jaeger category.jpg" alt="cffc3627459ff9044a4dc8328bf21691.jpeg" style="zoom:50%;" />
 
 
 既然 Jaeger 已经可以将耗时展现的如此细致了，为什么还需要其他优化策略呢？
@@ -101,7 +101,7 @@ func A() {
 
 建图后可以看到类似的效果
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/gbef.png" alt="279313ebb2615b02cfd8801e9d2a0e20.png" style="zoom:50%;" />
+<img src="/img/optimize/gbef.png" alt="279313ebb2615b02cfd8801e9d2a0e20.png" style="zoom:50%;" />
 
 图中我们可以看到所有函数的 95 分位的耗时时长，值得注意的是 callRecall 函数负责了对于 Recall 的调用，而在 Recall 中的耗时实际上比 callRecall 低了很多，甚至不到一半。然而走读代码并没有发现有其他的耗时操作，这就成为了一个比较困惑的点。为了排查除去 Recall 自身还有什么其他的耗时操作，我们就需要另一个工具了
 
@@ -119,13 +119,13 @@ go tool pprof -http=:8080 http://ip:port/debug/pprof/profile
 
 该工具会将运行时数据生成可视化图表 svg 文件，使用浏览器打开后找到 Flame 可以看到如下内容
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/cpubef.png" alt="e2d51db28b3b04b61dc52a34360711fe.png" style="zoom:50%;" />
+<img src="/img/optimize/cpubef.png" alt="e2d51db28b3b04b61dc52a34360711fe.png" style="zoom:50%;" />
 
 可以看到在 callRecall 过程中对于 json 数据的 Unmarshal 占用了很长时间的 CPU，可以推测因为 Recall 获取到的数据量非常大，接口返回数据后对于数据的格式化占用了非常大的时间。实际上 Go 标准库的 JSON 库性能并不是很优秀，有经验的 Gopher 们往往会采用第三方 JSON 来加快序列化、反序列化过程。
 
 而在本例中，对于结构庞大且复杂的 Struct 数据，使用 jsoniter 是一个非常好的选择。json-iterator 使用 [modern-go/reflect2](https://github.com/modern-go/reflect2) 来优化反射性能，因此在 Struct 的 Unmarshal 上性能非常好，在引入 jsoniter 后，我们再次查看 CPU 分布如下
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/cpuaft.png" alt="193a4ac0e557327e13b6cbaa7da75e52.png" style="zoom:50%;" />
+<img src="/img/optimize/cpuaft.png" alt="193a4ac0e557327e13b6cbaa7da75e52.png" style="zoom:50%;" />
 
 可见使用 jsoniter 的确提升了数倍性能
 
@@ -133,15 +133,15 @@ go tool pprof -http=:8080 http://ip:port/debug/pprof/profile
 
 这个时候我们再去查看 Grafana 上整个函数的耗时，发现整体调用耗时下降很多，已经在可接受范围了
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/gafter.jpg" alt="11e97065638d6b904a13d2c3ec542ac9.jpeg" style="zoom:50%;" />
+<img src="/img/optimize/gafter.jpg" alt="11e97065638d6b904a13d2c3ec542ac9.jpeg" style="zoom:50%;" />
 
 再补一张优化上线后各函数耗时的变化图，可见部分函数耗时下降明显
 
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/gdown.jpg" alt="b9b27de046605fc2f9af6808a927f8eb.jpeg" style="zoom:50%;" />
+<img src="/img/optimize/gdown.jpg" alt="b9b27de046605fc2f9af6808a927f8eb.jpeg" style="zoom:50%;" />
 
 最后看一下整个推荐请求的耗时在优化前后的对比，一整天下来基本所有耗时都优化了近一半的时间
 优化前：
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/recbef95.jpg" alt="8167536fd3f037eff841a7b9c5abc8a2.jpeg" style="zoom:50%;" />
+<img src="/img/optimize/recbef95.jpg" alt="8167536fd3f037eff841a7b9c5abc8a2.jpeg" style="zoom:50%;" />
 优化后：
-<img src="/Users/Zuiyou/openSourceCode/blog-images/optimize/recaft95.jpg" alt="8d53ed3f71a32dee256199426d6f4ac4.jpeg" style="zoom:50%;" />
+<img src="/img/optimize/recaft95.jpg" alt="8d53ed3f71a32dee256199426d6f4ac4.jpeg" style="zoom:50%;" />
 
