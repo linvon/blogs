@@ -10,7 +10,7 @@ categories:
 ---
 # IPv4
 
-![](/img/ipheader/ipv4.jpeg)
+![](../../img/ipheader/ipv4.jpeg)
 
 **版本（Version）**
 
@@ -64,7 +64,7 @@ categories:
 
 # IPv6
 
-![](/img/ipheader/ipv6.jpeg)
+![](../../img/ipheader/ipv6.jpeg)
 
 **版本（Version）**
 

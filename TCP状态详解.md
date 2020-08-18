@@ -7,7 +7,7 @@ categories:
 - "\u5B66\u4E60\u7B14\u8BB0"
 - "\u7F51\u7EDC"
 ...
---- 
+---
 # TCP连接状态
 
 **LISTEN**
@@ -69,7 +69,7 @@ CLOSING状态一般较少出现，这种是客户端和服务端同时发起了F
 
 # TCP状态转化
 
-![p18.png](/img/tcpstate/state.png)
+![p18.png](../../img/tcpstate/state.png)
 
 **服务端常见状态迁移流程：**
 
@@ -89,8 +89,8 @@ CLOSED->SYN_SENT->ESTABLISHED->FIN_WAIT_1->FIN_WAIT_2->TIME_WAIT->CLOSED
 
 # TCP三次握手与四次挥手
 
-![p16.png](/img/tcpstate/syn.png)
-![p17.png](/img/tcpstate/fin.png)
+![p16.png](../../img/tcpstate/syn.png)
+![p17.png](../../img/tcpstate/fin.png)
 
 其实从连接的建立与关闭过程来看TCP的状态转换会更加直观，一些状态只会出现在一个连接中的客户端或者服务端中的一端。
 
@@ -138,6 +138,8 @@ net.ipv4.tcp_keepalive_time = 60
 ```
 
 # 参考链接
-[tcp中11种状态详解](https://segmentfault.com/a/1190000019620421?utm_source=tag-newest)  
-[TCP标志位详解（TCP Flag）](https://blog.csdn.net/chenvast/article/details/77978367)  
+[tcp中11种状态详解](https://segmentfault.com/a/1190000019620421?utm_source=tag-newest)
+
+[TCP标志位详解（TCP Flag）](https://blog.csdn.net/chenvast/article/details/77978367)
+
 [TCP连接的状态详解以及故障排查](https://blog.csdn.net/hguisu/article/details/38700899)  

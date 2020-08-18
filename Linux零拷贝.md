@@ -9,7 +9,7 @@ categories:
 - linux
 - "\u5B66\u4E60\u7B14\u8BB0"
 ...
---- 
+---
 # 什么是零拷贝
 
 传统的 Linux 系统的标准 I/O 接口（read、write）是基于数据来拷贝的，也就是数据都是通过 copy_to_user 或者 copy_from_user 在用户态和内核态之间传递。这样做的好处是可以通过中间缓存的机制，减少磁盘 I/O 的操作。但是坏处也很明显，大量数据的拷贝，用户态和内核态的频繁切换，会消耗大量的 CPU 资源， 严重影响数据传输的性能。
@@ -36,7 +36,7 @@ while((n = read(diskfd, buf, BUF_SIZE)) > 0)
 3. write 将数据从用户态缓冲区复制到内核协议栈开辟的 socket 缓冲区
 4. 数据从 socket 缓冲区通过 DMA 拷贝到网卡上发出去。
 
-![p9.png](/img/zerocopy/ori.png)
+![p9.png](../../img/zerocopy/ori.png)
 
 可见，整个过程发生了至少四次数据拷贝，其中两次是 DMA 与硬件通讯来完成，CPU 不直接参与。去掉这两次，仍然有两次 CPU 数据拷贝操作。
 
@@ -44,7 +44,7 @@ while((n = read(diskfd, buf, BUF_SIZE)) > 0)
 
 这种方法可以使应用程序或者运行在用户态下的库函数直接访问硬件设备，数据直接跨过内核进行传输。内核在整个数据传输过程除了会进行必要的虚拟存储配置工作之外，不参与其他任何工作，这种方式能够直接绕过内核，极大提高了性能。
 
-![p8.png](/img/zerocopy/dirio.png)
+![p8.png](../../img/zerocopy/dirio.png)
 
 缺陷：
 1. 这种方法只能适用于那些不需要内核缓冲区处理的应用程序，这些应用程序通常在进程地址空间有自己的数据缓存机制，称为自缓存应用程序。如数据库管理系统就是一个代表。
@@ -61,7 +61,7 @@ write(sockfd, buf, len);
 
 应用程序调用 mmap ，磁盘文件中的数据通过 DMA 拷贝到内核缓冲区，接着操作系统会将这个缓冲区与应用程序共享，这样就不用往用户空间拷贝。应用程序调用write，操作系统直接将数据从内核缓冲区拷贝到 socket 缓冲区，后再通过 DMA 拷贝到网卡发出去。
 
-![p10.png](/img/zerocopy/mmap.png)
+![p10.png](../../img/zerocopy/mmap.png)
 
 缺陷：
 mmap 隐藏着一个陷阱，当 mmap 一个文件时，如果这个文件被另一个进程所截获，那么 write 系统调用会因为访问非法地址被 SIGBUS 信号终止，SIGBUS 默认会杀死进程并产生一个 coredump，如果服务被这样终止了，那损失就可能不小了。
@@ -92,7 +92,7 @@ ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
 
 sendfile 是只发生在内核态的数据传输接口，没有用户态的参与，自然避免了用户态数据拷贝。它指定在 in_fd 和 out_fd 之间传输数据，其中，它规定 in_fd 指向的文件必须是可以 mmap 的，out_fd 必须指向一个套接字，也就是规定数据只能从文件传输到套接字，反之则不行。sendfile 不存在像 mmap 时文件被截获的情况，它自带异常处理机制。
 
-![p11.png](/img/zerocopy/sendfile.png)
+![p11.png](../../img/zerocopy/sendfile.png)
 
 缺陷：
 只能适用于那些不需要用户态处理的应用程序。
@@ -101,7 +101,7 @@ sendfile 是只发生在内核态的数据传输接口，没有用户态的参�
 
 这种方法借助硬件的帮助，在数据从内核缓冲区到 socket 缓冲区这一步操作上，并不是拷贝数据， 而是拷贝缓冲区描述符，待完成后，DMA 引擎直接将数据从内核缓冲区拷贝到协议引擎中去，避免 了后一次拷贝。
 
-![p12.png](/img/zerocopy/dmasendfile.png)
+![p12.png](../../img/zerocopy/dmasendfile.png)
 
 缺陷：
 1. 除了只能适用于那些不需要用户态处理的应用程序的缺陷，还需要硬件以及驱动程序支持。

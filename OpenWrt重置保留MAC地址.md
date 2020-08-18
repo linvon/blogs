@@ -7,7 +7,7 @@ categories: ["学习笔记", "openwrt"]
 OpenWrt重置时会丢失网络配置，而系统的MAC地址是随机生成的，这样可能会造成MAC地址变化。但重置时mtd字符设备不会变。且mtd本身留有一段空间用来存储lan_mac，遂在启动生成配置时，检测到mtd中的mac如果为ff:ff:ff:ff:ff:ff，就把设备生成的mac写进去，再次生成时先从mtd中读取。
 
 > MTD，Memory Technology Device即内存技术设备，在Linux内核中，引入MTD层为NOR FLASH和NAND FLASH设备提供统一接口。MTD将文件系统与底层FLASH存储器进行了隔离。  
-> ![mtd](/img/OpenWrt/mtd.png)   
+> ![mtd](../../img/OpenWrt/mtd.png)   
 > 
 > 如上图所示，MTD设备通常可分为四层，从上到下依次是：设备节点、MTD设备层、MTD原始设备层、硬件驱动层。  
 > 

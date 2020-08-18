@@ -43,7 +43,7 @@ xmlhttp.send("fname=Bill&lname=Gates");
 
 简单来讲，跨域资源共享标准新增了一组 HTTP 首部字段，允许服务器声明哪些源站有权限访问哪些资源。这样通过客户端和服务器端进行协商后，就可以实现资源的跨域访问。  
 如图：
-![](/img/cors/简单请求.png)
+![](../../img/cors/简单请求.png)
 
 <p align="center">CORS简单请求流程</p>&nbsp;
 
@@ -57,7 +57,7 @@ CORS与JSONP相比，无疑更为先进、方便和可靠。
  > JSONP主要被老的浏览器支持，它们往往不支持CORS，而绝大多数现代浏览器都已经支持了CORS。  
 
 
-![](/img/cors/浏览器.png)
+![](../../img/cors/浏览器.png)
 
 
 <p align="center">支持CORS的浏览器</p>&nbsp;  
@@ -102,7 +102,7 @@ CORS与JSONP相比，无疑更为先进、方便和可靠。
 
 满足以上条件的请求将以“简单请求”的形式发送到服务器。
 即如图中所示
-![](/img/cors/简单请求.png)
+![](../../img/cors/简单请求.png)
 
 <p align="center">CORS简单请求流程</p>&nbsp;
 
@@ -173,7 +173,7 @@ Content-Type: application/xml
 > - text/plain
 
 其流程如图：
-![](/img/cors/预检请求.png)
+![](../../img/cors/预检请求.png)
 
 <p align="center">CORS预检请求流程</p>&nbsp;
 
@@ -244,7 +244,7 @@ function callOtherDomain(){
 }
 ```
 >第 7 行将 XMLHttpRequest 的 withCredentials 标志设置为 true，从而向服务器发送 Cookies。因为这是一个简单 GET 请求，所以浏览器不会对其发起“预检请求”。但是，如果服务器端的响应中未携带 Access-Control-Allow-Credentials: true ，浏览器将不会把响应内容返回给请求的发送者。
-![](/img/cors/cred-req.png)
+![](../../img/cors/cred-req.png)
 >
 ><p align="center">携带身份信息的CORS请求流程</p>&nbsp; 
 >

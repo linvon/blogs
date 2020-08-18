@@ -30,7 +30,7 @@ TCP的流量控制是由大小可变的滑动窗口来实现的，滑动窗口�
 拥塞窗口（cwnd）：预防应用程序发送的数据超过了网络所能承载的能力。发送方使用的流量控制。
 而发送窗口就是取自于上面两者的较小值
 
-![p13.png](/img/tcpcon/window.png)
+![p13.png](../../img/tcpcon/window.png)
 
 如图所示就是一个简单的滑动窗口，只有窗口内的数据包才可以被发送，接收到已发送包的确认后，窗口便会向前滑动。因此滑动窗口也是建立与确认重传机制之上的。
 
@@ -43,7 +43,7 @@ TCP的流量控制是由大小可变的滑动窗口来实现的，滑动窗口�
 Reno是大家最熟悉、最常用的的拥塞控制算法，也是Linux内核的默认算法。
 其主要包括我们所耳熟能详的四个阶段：慢启动、拥塞避免、快速重传、快速恢复
 
-![p15.png](/img/tcpcon/reno.png)
+![p15.png](../../img/tcpcon/reno.png)
 
 先解释一下图片：
 横轴是时间推移，也可以理解为发送的轮次，每次发送完一个发送窗口的数据包认为是一轮次
@@ -98,8 +98,11 @@ TD：在超时前收到三个重复的冗余ACK数据包，认为是数据包丢
 
 # 参考链接
 
-[TCP拥塞控制和TCP流量控制](https://blog.csdn.net/qq_38623623/article/details/81290265)  
-[TCP流量控制和拥塞控制](https://www.cnblogs.com/iou123lg/p/9017044.html)  
-[面试头条你需要懂的 TCP 拥塞控制原理](https://mp.weixin.qq.com/s/AjK8g62jL-5_xSSvVZzQJQ)  
+[TCP拥塞控制和TCP流量控制](https://blog.csdn.net/qq_38623623/article/details/81290265)
+
+[TCP流量控制和拥塞控制](https://www.cnblogs.com/iou123lg/p/9017044.html)
+
+[面试头条你需要懂的 TCP 拥塞控制原理](https://mp.weixin.qq.com/s/AjK8g62jL-5_xSSvVZzQJQ)
+
 
 

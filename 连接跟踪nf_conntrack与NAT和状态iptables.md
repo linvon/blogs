@@ -81,38 +81,38 @@ Linux的防火墙iptables有四个表（table），分别记录不同过程中�
 
 表和链的关系（数据包的处理流程）：
 
-![img](/img/conntrack/pkt.png)
+![img](../../img/conntrack/pkt.png)
 
 #### 连接跟踪作用点
 
 用于实现**连接跟踪入口**的hook函数ip_conntrack被置在PRE_ROUTING和LOCAL_OUT，而用于实现**连接跟踪出口**的hook函数help和confirm被置在LOCAL_IN和POST_ROUTING。
 
-![img](/img/conntrack/hook.png)
+![img](../../img/conntrack/hook.png)
 
 实际上PRE_ROUTING和LOCAL_IN可以看作是整个收包流程的入口和出口，而LOCAL_OUT和POST_ROUTING可以看作是出包流程的入口和出口。在只考虑连接跟踪的情况下，一个数据包无外乎有以下三种流程可以走：
 
 - 发送给本机的数据包
-![img](/img/conntrack/pro1.png)流程：PRE_ROUTING----LOCAL_IN---本地进程
+![img](../../img/conntrack/pro1.png)流程：PRE_ROUTING----LOCAL_IN---本地进程
 
 - 需要本机转发的数据包
-![img](/img/conntrack/pro2.png)
+![img](../../img/conntrack/pro2.png)
 流程：PRE_ROUTING---FORWARD---POST_ROUTING---外出
 
 - 从本机发出的数据包
-![img](/img/conntrack/pro3.png)
+![img](../../img/conntrack/pro3.png)
 流程：LOCAL_OUT----POST_ROUTING---外出
 
 而连接跟踪模块要做的便是在**入口时创建连接跟踪记录，出口时将该记录加入到连接跟踪表中**。
 
 入口：
 
-![img](/img/conntrack/in.png)
+![img](../../img/conntrack/in.png)
 
 对于每个到来的skb，连接跟踪都将其转换成一个tuple结构（元祖），然后用根据tuple计算出对应的哈希值，再去查连接跟踪表。如果该类型的数据包没有被记录过，将为其在连接跟踪的哈希表里新建一条连接记录，对于已经跟踪过了的数据包则不做此操作。紧接着，调用该报文所属协议的连接跟踪模块的所提供的packet()回调函数，最后根据状态改变连接跟踪记录的状态。
 
 出口：
 
-![img](/img/conntrack/out.png)
+![img](../../img/conntrack/out.png)
 
 对于每个即将离开Netfilter框架的数据包，如果用于处理该协议类型报文的连接跟踪模块提供了helper函数，那么该数据包首先会被helper函数处理，然后才去判断，如果该报文已经被跟踪过了，那么根据其所属连接的状态，决定该包是该被丢弃、或是返回协议栈继续传输，又或者将其加入到连接跟踪表中。
 
@@ -120,11 +120,11 @@ Linux的防火墙iptables有四个表（table），分别记录不同过程中�
 
 之前简单介绍了连接跟踪的原理，也提到过连接跟踪表。连接跟踪表是一个由全局变量ip_conntrack_hash所指向的哈希表，实际上是一个由数据包元组哈希值组成的双向循环链表数组
 
-![img](/img/conntrack/hashtable.png)
+![img](../../img/conntrack/hashtable.png)
 
 链表中每个节点都是ip_conntrack_tuple_hash类型的结构体。
 
-![img](/img/conntrack/hashnode.png)
+![img](../../img/conntrack/hashnode.png)
 
 #### 拓展：协议状态
 

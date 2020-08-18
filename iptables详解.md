@@ -18,7 +18,7 @@ categories: ["学习笔记","linux"]
 
 数据包通过Linux设备时流程如图:
 
-![img](/img/iptables/process.png)
+![img](../../img/iptables/process.png)
 
 ### 链
 
