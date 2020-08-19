@@ -16,6 +16,7 @@ categories: ["学习笔记"]
 `python3  setup.py  py2app`
 
 在该步骤如果使用 Python2.x 运行可能会有以下错误，因此建议使用 Python3 来运行，若还有错误可以尝试使用 sudo
+
 > creating application bundle: win *** error: [Errno 1] Operation not permitted:   '/Users/a/studio/a/a/dist/main.app/Contents/MacOS/win'
 
 完成打包后，在 dist 文件夹下有生成的 App，双击即可运行，如果运行报错，可以右键显示包内容，进入 `mian.app/Contents/MacOS`，找到你的 App 对应的可执行文件，进入 Terminal 调试
