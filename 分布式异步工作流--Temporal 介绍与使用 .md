@@ -14,9 +14,9 @@ toc: "true"
 
 **先说结论**
 
-我们的业务场景是基于 Golang 的，在经过对比后我们选择的是本文的标题中所提到的 Temporal。
+我们的业务场景是基于 Golang 的，在经过对比后我们选择的是本文的标题中所提到的 [Temporal](https://github.com/temporalio/temporal)。
 
-Temporal 前身是 Uber 的内部工作流组件 Cadence，是一个封装的比较好的工作流编排引擎。由 Go 编写，客户端支持 Go 和 JAVA（其他客户端也在积极开发中），通过 Docker 和 K8S 部署可以达到开箱即用的效果。
+[Temporal](https://github.com/temporalio/temporal) 前身是 Uber 的内部工作流组件 [Cadence](https://github.com/uber/cadence)，是一个封装的比较好的工作流编排引擎。由 Go 编写，客户端支持 Go 和 JAVA（其他客户端也在积极开发中），通过 Docker 和 K8S 部署可以达到开箱即用的效果。
 
 有相关需求或感兴趣的同学可以继续向下阅读
 
