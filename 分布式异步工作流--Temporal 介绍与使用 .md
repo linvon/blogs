@@ -49,48 +49,48 @@ Temporal（Cadence）是一个引擎，本身可视为一个中间件，其依�
 - Machinery
 
 ``` go
-  // Worker
-	// 任务具体逻辑
-  func Add(args ...int64) (int64, error) {
-    sum := int64(0)
-    for _, arg := range args {
-      sum += arg
-    }
-    return sum, nil
+// Worker
+// 任务具体逻辑
+func Add(args ...int64) (int64, error) {
+  sum := int64(0)
+  for _, arg := range args {
+    sum += arg
   }
+  return sum, nil
+}
 
-	// 注册任务
-	tasks := map[string]interface{}{
-		"add":               exampletasks.Add,
-	}
+// 注册任务
+tasks := map[string]interface{}{
+  "add":               exampletasks.Add,
+}
 
 
-  // Trigger
-	// 生成任务参数
-	var addTask0 = tasks.Signature{
-			Name: "add",
-			Args: []tasks.Arg{
-				{
-					Type:  "int64",
-					Value: 1,
-				},
-				{
-					Type:  "int64",
-					Value: 1,
-				},
-			},
-		}
-	// 发送任务请求
-	asyncResult, err := server.SendTaskWithContext(ctx, &addTask0)
-	if err != nil {
-		return fmt.Errorf("Could not send task: %s", err.Error())
-	}
-	// 获取任务结果
-	results, err := asyncResult.Get(time.Duration(time.Millisecond * 5))
-	if err != nil {
-		return fmt.Errorf("Getting task result failed with error: %s", err.Error())
-	}
-	log.INFO.Printf("1 + 1 = %v\n", tasks.HumanReadableResults(results))
+// Trigger
+// 生成任务参数
+var addTask0 = tasks.Signature{
+  Name: "add",
+  Args: []tasks.Arg{
+    {
+      Type:  "int64",
+      Value: 1,
+    },
+    {
+      Type:  "int64",
+      Value: 1,
+    },
+  },
+}
+// 发送任务请求
+asyncResult, err := server.SendTaskWithContext(ctx, &addTask0)
+if err != nil {
+  return fmt.Errorf("Could not send task: %s", err.Error())
+}
+// 获取任务结果
+results, err := asyncResult.Get(time.Duration(time.Millisecond * 5))
+if err != nil {
+  return fmt.Errorf("Getting task result failed with error: %s", err.Error())
+}
+log.INFO.Printf("1 + 1 = %v\n", tasks.HumanReadableResults(results))
 ```
 
 - Temporal

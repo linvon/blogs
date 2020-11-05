@@ -25,11 +25,11 @@ toc: "true"
 
 [Jaeger](https://www.jaegertracing.io/) 是一个优秀的分布式微服务事务追踪软件。即使一个请求会经过不同的微服务来完成业务，它仍然可以追踪一个完整的会话上下文。
 
-<img src="../../img/optimize/jaeger view.png" alt="39d66ffc2a28e0f0f810cda217f7add0.png" style="zoom:50%;" />
+<img src="../../img/optimize/jaeger_view.png" alt="39d66ffc2a28e0f0f810cda217f7add0.png" style="zoom:50%;" />
 
 点击一个请求会话，可以进入到它的详情页
 
-<img src="../../img/optimize/jaeger detail view.png" alt="aa77e19aae4dc70cfe60134c9df2e3ed.png" style="zoom: 50%;" />
+<img src="../../img/optimize/jaeger_detail_view.png" alt="aa77e19aae4dc70cfe60134c9df2e3ed.png" style="zoom: 50%;" />
 
 可以看到在整个请求的分阶段耗时都展现了出来，我们可以清楚的了解到整个请求过程中时间都花费在了什么地方。
 
@@ -42,7 +42,7 @@ span, _ := opentracing.StartSpanFromContext(ctx, "RecallStrategies", opentracing
 defer span.Finish()
 ```
 
-<img src="../../img/optimize/Jaeger category.jpg" alt="cffc3627459ff9044a4dc8328bf21691.jpeg" style="zoom:50%;" />
+<img src="../../img/optimize/Jaegercategory.jpg" alt="cffc3627459ff9044a4dc8328bf21691.jpeg" style="zoom:50%;" />
 
 
 既然 Jaeger 已经可以将耗时展现的如此细致了，为什么还需要其他优化策略呢？
