@@ -561,7 +561,7 @@ Tips: Temporal 服务包含 frontend、matching、history、worker 几个内部�
 
 为例方便自己也方便其他不想读英文的同学，我对官方文档的特性介绍和 Go 客户端部分做了翻译：[翻译后文档地址](https://github.com/linvon/temporal-doc-CN)
 
-初次之外，Temporal 官方提供了运行样例：[Golang SDK 样例](https://github.com/temporalio/samples-go)，该样例能很好的阐释一些 Temporal 的特性并告诉你想使用它时代码该如何编写，为了方便起见我简单做了一个样例介绍，方便有需要的同学想要了解相关特性时快速查找样例，介绍附在了翻译文档的[最后一篇](https://github.com/linvon/temporal-doc-CN/blob/main/docs/samples.md)
+除此之外，Temporal 官方提供了运行样例：[Golang SDK 样例](https://github.com/temporalio/samples-go)，该样例能很好的阐释一些 Temporal 的特性并告诉你想使用它时代码该如何编写，为了方便起见我简单做了一个样例介绍，方便有需要的同学想要了解相关特性时快速查找样例，介绍附在了翻译文档的[最后一篇](https://github.com/linvon/temporal-doc-CN/blob/main/docs/samples.md)
 
 # 完结
 
