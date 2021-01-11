@@ -1,5 +1,5 @@
 ---
-title: "在Go Module 下使用 Go protobuf"
+title: "在Go Module 下使用 gogoprotobuf 的引用问题"
 date: "2021-01-07"
 toc: "true"
 ---
