@@ -212,17 +212,8 @@ return False;
 现在考虑一个构造过程，该过程将n个随机项插入到 m=cn 个桶的空表中（对于常数c和常数桶大小 b）。每当有q=2b+1个项映射到相同的两个桶时，插入就失败了。这个概率为失败提供了一个下限（而且我们相信，这个构造过程的失败概率占主导地位，虽然我们没有证明这一点，也不需要为了获得一个下界而去证明）。由于n个项中总共有$\begin{pmatrix}n\\2b+1\end{pmatrix} $个不同的2b+1个项的可能集合，因此在构造过程中发生碰撞的2b+1个项的组的预期数量为
 
 $$
-\begin{pmatrix}n\\2b + 1\end{pmatrix}
-\begin{pmatrix}\frac{2}{2^f·m}\end{pmatrix}
-^{2b} 
-=
-\begin{pmatrix}n\\2b + 1\end{pmatrix}
-\begin{pmatrix}\frac{2}{2^f·cn}\end{pmatrix}
-=Ω
-\begin{pmatrix}\frac{n}{4^{bf}}\end{pmatrix}
-       (3)
+\begin{pmatrix}n\\2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·m}\end{pmatrix}^{2b} =\begin{pmatrix}n\\2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·cn}\end{pmatrix}=Ω\begin{pmatrix}\frac{n}{4^{bf}}\end{pmatrix}.(3)
 $$
-
 
 我们得出结论4^bf^必须是Ω(n)以避免非微小的失败概率，否则这种期望是Ω(1)的。因此，指纹的大小必须是f=Ω(log n/b)位。
 
@@ -246,13 +237,7 @@ $$
 空间效率是通过一个完整的过滤器中表示每个项的平均位数来衡量的，由表大小除以过滤器可以有效存储的项总数得出。 回想一下，虽然哈希表的每个条目存储一个指纹，但并不是所有的条目都被占用：对于布谷鸟过滤器，表中必须有一些松弛，否则插入项时会出现故障。 因此每个项实际地存储成本比指纹本身更高：如果每个指纹为f位，哈希表具有α的负载因子，则每个项的均摊空间成本C为
 
 $$
-C =
-\frac{table\ size}{\#\ of\ items}
-=
-\frac{f · (\#\ of\ entries)}{α · (\#\ of\ entries)}
-= 
-\frac{f}{α}
-\ \ bits.\ (4)
+C =\frac{table\ size}{\#\ of\ items}=\frac{f · (\#\ of\ entries)}{α · (\#\ of\ entries)}= \frac{f}{α}\ \ bits.\ (4)
 $$
 
 
@@ -274,19 +259,13 @@ $$
 这与桶的大小b成正比。 为了保留目标假阳性率ϵ，过滤器确保$2b/2^f\leqϵ$ ，因此需要的最小的指纹大小大约是：
 
 $$
-f ≥ 
-log_2(2b/ϵ)
-=
-log_2(1/ϵ) + log_2(2b)
-\ \ bits.\  (6)
+f ≥ log_2(2b/ϵ)=log_2(1/ϵ) + log_2(2b)\ \ bits.\  (6)
 $$
 
 **空间成本的上限** 如我们所展示的，f和α都取决于桶大小b。 由公式([4](#_bookmark19))得平均空间成本C受下列约束：
 
 $$
-C ≤ 
-[log_2(1/ϵ) + log_2(2b)]
-/α .\ \  (7)
+C ≤ [log_2(1/ϵ) + log_2(2b)]/α .\ \  (7)
 $$
 
 
