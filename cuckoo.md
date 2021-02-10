@@ -213,7 +213,7 @@ return False;
 
 $$
 \begin{pmatrix}
-n \\
+n \\\
 2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·m}\end{pmatrix}^{2b}=\begin{pmatrix}n\\2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·cn}\end{pmatrix}=Ω\begin{pmatrix}\frac{n}{4^{bf}}\end{pmatrix}.(3)
 $$
 
