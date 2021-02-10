@@ -213,7 +213,7 @@ return False;
 
 $$
 \begin{pmatrix}
-n\\
+n \\
 2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·m}\end{pmatrix}^{2b}=\begin{pmatrix}n\\2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·cn}\end{pmatrix}=Ω\begin{pmatrix}\frac{n}{4^{bf}}\end{pmatrix}.(3)
 $$
 
@@ -239,7 +239,7 @@ $$
 空间效率是通过一个完整的过滤器中表示每个项的平均位数来衡量的，由表大小除以过滤器可以有效存储的项总数得出。 回想一下，虽然哈希表的每个条目存储一个指纹，但并不是所有的条目都被占用：对于布谷鸟过滤器，表中必须有一些松弛，否则插入项时会出现故障。 因此每个项实际地存储成本比指纹本身更高：如果每个指纹为f位，哈希表具有α的负载因子，则每个项的均摊空间成本C为
 
 $$
-C =\frac{table\ size}{\#\ of\ items}=\frac{f · (avg\ of\ entries)}{α · (\#\ of\ entries)}= \frac{f}{α}\ \ bits.\ (4)
+C =\frac{table\ size}{avg\ of\ items}=\frac{f · (avg\ of\ entries)}{α · (avg\ of\ entries)}= \frac{f}{α}\ \ bits.\ (4)
 $$
 
 
