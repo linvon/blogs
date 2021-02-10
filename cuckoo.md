@@ -212,6 +212,10 @@ return False;
 现在考虑一个构造过程，该过程将n个随机项插入到 m=cn 个桶的空表中（对于常数c和常数桶大小 b）。每当有q=2b+1个项映射到相同的两个桶时，插入就失败了。这个概率为失败提供了一个下限（而且我们相信，这个构造过程的失败概率占主导地位，虽然我们没有证明这一点，也不需要为了获得一个下界而去证明）。由于n个项中总共有$\begin{pmatrix}n\\2b+1\end{pmatrix} $个不同的2b+1个项的可能集合，因此在构造过程中发生碰撞的2b+1个项的组的预期数量为
 
 $$
+\begin{pmatrix}a & b\\\ c & d\end{pmatrix}
+$$
+
+$$
 \begin{pmatrix}
 n \\\
 2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·m}\end{pmatrix}^{2b}=\begin{pmatrix}n\\2b + 1\end{pmatrix}\begin{pmatrix}\frac{2}{2^f·cn}\end{pmatrix}=Ω\begin{pmatrix}\frac{n}{4^{bf}}\end{pmatrix}.(3)
@@ -279,8 +283,10 @@ $$
 | cuckoo fifilter                | (log2 (1/ϵ) + 3)/α | 95.5%             | 2\|2                                                         |
 | cuckoo fifilter w/ semi-sort   | (log2 (1/ϵ) + 2)/α | 95.5%             | 2\|2                                                         |
 
-<center>表2：布隆过滤器和三个布谷鸟过滤器的空间和查找成本
-![3](../../img/cuckoo/3.jpg)</center>
+<center>表2：布隆过滤器和三个布谷鸟过滤器的空间和查找成本</center>
+
+
+![3](../../img/cuckoo/3.jpg)
 
 <center>图3：每个项的均摊空间成本与测量的假阳性率，不同桶大小b=2，4，8。<br>
 每个点为10次运行的平均值</center>
