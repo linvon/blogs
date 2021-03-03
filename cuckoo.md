@@ -3,6 +3,12 @@ title: "布谷鸟过滤器：实际上优于布隆过滤器"
 date: "2021-02-10"
 toc: "true"
 math: "true"
+keywords: 
+- cuckoofilter
+- 布谷鸟过滤器
+- 论文
+- 翻译
+- 布隆过滤器
 
 ---
 
