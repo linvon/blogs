@@ -2,6 +2,14 @@
 title: "分布式异步工作流 -- Temporal 介绍与使用 "
 date: "2020-10-27"
 toc: "true"
+keywords: 
+- temporal
+- go
+- golang
+- 分布式
+- 异步
+- 工作流
+
 ---
 
 # 为什么我们需要这样的工作流组件
