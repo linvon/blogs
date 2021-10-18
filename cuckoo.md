@@ -15,6 +15,9 @@ keywords:
 本文译自原论文:[https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf)
 
 译注：下文将“检索一个元素是否在一个集合中”称为“集合隶属测试”；存在假阳性率的“集合隶属测试”称为“近似集合隶属测试”
+
+Golang实现的本文描述的布谷鸟过滤器 [Github](https://github.com/linvon/cuckoo-filter)
+
 # 摘要
 
 在许多网络系统中，布隆过滤器常用于快速实现数据集的隶属测试。它允许一小部分假阳性结果，但具有很好的空间效率。但是它不能从集合中删除项，而此前试图扩展“标准”布隆过滤器以支持删除的尝试都会增大空间占用或降低性能。
